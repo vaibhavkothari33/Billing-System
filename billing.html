@@ -10,6 +10,8 @@
         .bill-container { max-width: 800px; margin: auto; border: 1px solid #ccc; padding: 20px; }
         .bill-header, .bill-footer { text-align: center; }
         .bill-details, .customer-details { margin-top: 20px; }
+        .back-button { margin-top: 20px; }
+        .print-button { margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -38,13 +40,32 @@
                     </tr>
                 </thead>
                 <tbody id="billingItems"></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"><strong>Total</strong></td>
+                        <td id="totalAmount"></td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="bill-footer">
             <p>Thank you for your purchase!</p>
         </div>
+        <button class="btn btn-primary back-button" onclick="goBack()">Back</button>
+        <button class="btn btn-success print-button" onclick="printBill()">Print</button>
     </div>
+
     <script>
+        function goBack() {
+            localStorage.removeItem('customerName');
+            localStorage.removeItem('customerMobile');
+            window.location.href = 'index.html';
+        }
+
+        function printBill() {
+            window.print();
+        }
+
         document.addEventListener("DOMContentLoaded", function() {
             const shopMobile = "123-456-7890";
             const shopGSTIN = "22AAAAA0000A1Z5";
@@ -60,20 +81,29 @@
             document.getElementById("customerMobile").textContent = customerMobile;
 
             const billingItems = document.getElementById("billingItems");
+            let totalAmount = 0;
+
             products.forEach(product => {
-                const total = (product.price - product.discount) * product.quantity;
+                const discountAmount = (product.discount / 100) * product.price;
+                const total = (product.price - discountAmount) * product.quantity;
+                totalAmount += total;
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.name}</td>
                     <td>${product.quantity}</td>
-                    <td>${product.price}</td>
-                    <td>${product.discount}</td>
+                    <td>${product.price.toFixed(2)}</td>
+                    <td>${product.discount}%</td>
                     <td>${total.toFixed(2)}</td>
                 `;
                 billingItems.appendChild(row);
             });
 
-            window.print();
+            document.getElementById("totalAmount").textContent = totalAmount.toFixed(2);
+
+            // Reset local storage after printing
+            localStorage.removeItem('customerName');
+            localStorage.removeItem('customerMobile');
         });
     </script>
 </body>

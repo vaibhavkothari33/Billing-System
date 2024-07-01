@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body { padding: 20px; }
+        .bill-container { max-width: 800px; margin: auto; border: 1px solid #ccc; padding: 20px; }
+        .bill-header, .bill-footer { text-align: center; }
+        .bill-details, .customer-details { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <div class="bill-header">
+            <h1>Shop Name</h1>
+            <p>Shop Address</p>
+            <p>Shop Mobile: <span id="shopMobile"></span></p>
+            <p>Shop GSTIN: <span id="shopGSTIN"></span></p>
+        </div>
+        <div class="customer-details">
+            <h2>Customer Details</h2>
+            <p>Name: <span id="customerName"></span></p>
+            <p>Mobile: <span id="customerMobile"></span></p>
+        </div>
+        <div class="bill-details">
+            <h2>Billing Details</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="billingItems"></tbody>
+            </table>
+        </div>
+        <div class="bill-footer">
+            <p>Thank you for your purchase!</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const shopMobile = "123-456-7890";
+            const shopGSTIN = "22AAAAA0000A1Z5";
+            document.getElementById("shopMobile").textContent = shopMobile;
+            document.getElementById("shopGSTIN").textContent = shopGSTIN;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const customerName = urlParams.get('customerName');
+            const customerMobile = urlParams.get('customerMobile');
+            const products = JSON.parse(decodeURIComponent(urlParams.get('products')));
+
+            document.getElementById("customerName").textContent = customerName;
+            document.getElementById("customerMobile").textContent = customerMobile;
+
+            const billingItems = document.getElementById("billingItems");
+            products.forEach(product => {
+                const total = (product.price - product.discount) * product.quantity;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.price}</td>
+                    <td>${product.discount}</td>
+                    <td>${total.toFixed(2)}</td>
+                `;
+                billingItems.appendChild(row);
+            });
+
+            window.print();
+        });
+    </script>
+</body>
+</html>

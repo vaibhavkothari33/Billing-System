@@ -73,7 +73,6 @@
         <h2>Author</h2>
         <ul>
             <li>Vaibhav Kothari</li>
-          
-        </ul>
+           </ul>
     </div>
 </body>

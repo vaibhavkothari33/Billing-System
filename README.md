@@ -63,10 +63,6 @@
         <p>No special setup is required. Simply open <code>index.html</code> in your web browser to start using the application.</p>
     </div>
     <div class="section">
-        <h2>License</h2>
-        <p>This project is licensed under the MIT License - see the <code>LICENSE</code> file for details.</p>
-    </div>
-    <div class="section">
         <h2>Credits</h2>
         <ul>
             <li>Bootstrap (<a href="https://getbootstrap.com/">https://getbootstrap.com/</a>): Used for styling and layout.</li>
@@ -76,8 +72,8 @@
     <div class="section">
         <h2>Author</h2>
         <ul>
-            <li>Your Name</li>
-            <li>Your Contact Information</li>
+            <li>Vaibhav Kothari</li>
+          
         </ul>
     </div>
 </body>

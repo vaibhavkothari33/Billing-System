@@ -8,27 +8,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const quantityInput = document.getElementById('quantity');
     const priceInput = document.getElementById('price');
     const discountInput = document.getElementById('discount');
+    const customerNameInput = document.getElementById('customerName');
+    const customerMobileInput = document.getElementById('customerMobile');
 
     let products = JSON.parse(localStorage.getItem('products')) || [];
 
     // Predefined product list
     const predefinedProducts = [
-        { name: 'Wire', price: 10, discount: 0 },
-        { name: 'Light Bulb', price: 5, discount: 0 },
-        { name: 'Vaibhav', price: 5, discount: 0 },
-        { name: 'Shrijan', price: 5, discount: 0 },
-        { name: 'Gourav', price: 5, discount: 0 },
-        { name: 'Akshat', price: 5, discount: 0 },
-        { name: 'Navveen', price: 5, discount: 0 },
-        { name: 'Night and club', price: 5, discount: 0 },
-        { name: 'Vanshika', price: 5, discount: 0 },
-        { name: 'Charu', price: 5, discount: 0 },
-        { name: 'Chitresh', price: 5, discount: 0 },
-        { name: 'Madhu', price: 5, discount: 0 },
-        { name: 'Maddy', price: 5, discount: 0 },
-        { name: 'Srishti', price: 5, discount: 0 },
-        { name: 'Finolex', price: 5, discount: 0 },
-        { name: 'Pipe', price: 15, discount: 0 }
+    { name: 'Wire', price: 10, discount: 0 },
+{ name: 'Light Bulb', price: 5, discount: 0 },
+{ name: 'Vaibhav', price: 5, discount: 0 },
+{ name: 'Shrijan', price: 5, discount: 0 },
+{ name: 'Gourav', price: 5, discount: 0 },
+{ name: 'Akshat', price: 5, discount: 0 },
+{ name: 'Navveen', price: 5, discount: 0 },
+{ name: 'Night and club', price: 5, discount: 0 },
+{ name: 'Vanshika', price: 5, discount: 0 },
+{ name: 'Charu', price: 5, discount: 0 },
+{ name: 'Chitresh', price: 5, discount: 0 },
+{ name: 'Madhu', price: 5, discount: 0 },
+{ name: 'Maddy', price: 5, discount: 0 },
+{ name: 'Srishti', price: 5, discount: 0 },
+{ name: 'Finolex', price: 5, discount: 0 },
+{ name: 'Pipe', price: 15, discount: 0 }
     ];
 
     function displayProducts(filteredProducts = products) {
@@ -69,6 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 suggestionsBox.appendChild(suggestionItem);
             });
+            suggestionsBox.style.display = 'block';
+        } else {
+            suggestionsBox.style.display = 'none';
         }
     });
 
@@ -97,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     printButton.addEventListener('click', function() {
-        const customerName = prompt("Enter customer name:");
-        const customerMobile = prompt("Enter customer mobile number:");
+        const customerName = customerNameInput.value;
+        const customerMobile = customerMobileInput.value;
 
         if (customerName && customerMobile) {
             const queryParams = new URLSearchParams({
@@ -109,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             window.location.href = `billing.html?${queryParams}`;
             localStorage.removeItem('products');
-            products = [];
-            displayProducts();
+        } else {
+            alert("Please enter customer details.");
         }
     });
 

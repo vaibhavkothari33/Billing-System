@@ -62,13 +62,7 @@
         <h2>Setup</h2>
         <p>No special setup is required. Simply open <code>index.html</code> in your web browser to start using the application.</p>
     </div>
-    <div class="section">
-        <h2>Credits</h2>
-        <ul>
-            <li>Bootstrap (<a href="https://getbootstrap.com/">https://getbootstrap.com/</a>): Used for styling and layout.</li>
-            <li>Icons8 (<a href="https://icons8.com/">https://icons8.com/</a>): Used for icon assets.</li>
-        </ul>
-    </div>
+
     <div class="section">
         <h2>Author</h2>
         <ul>
